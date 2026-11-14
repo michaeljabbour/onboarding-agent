@@ -1,0 +1,48 @@
+# Private development history, installed skills, and duplicate staging copies
+/work/
+/.agents/
+/.claude/
+/.taste-skill/
+/launcher/
+/skills-lock.json
+/README.txt
+
+# Generated release packages and personalized exports
+/dist/
+*.zip
+**/climb-seed.json
+
+# Local agent state, configuration, credentials, and logs
+.env
+.env.*
+!.env.example
+*.local
+*.local.*
+.climb/
+climb-notes/
+logs/
+*.log
+*.jsonl
+*.pid
+*.pem
+*.key
+credentials*.json
+secrets*.json
+
+# Dependencies, temporary output, editor and operating-system files
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+coverage/
+playwright-report/
+test-results/
+.cache/
+.tmp/
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
