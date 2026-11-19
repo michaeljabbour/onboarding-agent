@@ -10,7 +10,7 @@ Security fixes are applied to the current development branch. Older versions do 
 
 ## Intended boundary
 
-The agent is for one trusted user on a local computer. It listens on loopback and checks request Host, Origin when present, and the application header. These checks reduce unwanted browser requests; they are not authentication against other local software. Do not expose the port through a tunnel, reverse proxy, or public network interface.
+The agent is for one trusted user on a local computer. It listens on loopback and checks request Host, Origin when present, and the application header. These checks reduce unwanted browser requests; they are not authentication against other local software. The same boundary applies to the in-guide terminal, which runs a shell with the user's own permissions: software that can already act as that user on the computer could reach it, and a web page on another origin cannot. The guide's page is served with headers that forbid other pages from placing it in a frame. Do not expose the port through a tunnel, reverse proxy, or public network interface.
 
 The companion conversation disables computer tools. Other guide steps can run commands, edit files, install software, and interact with a configured repository according to that step's permissions. Model instructions and plan review are not an operating-system sandbox. Inspect proposed work and use an appropriate account and workspace.
 

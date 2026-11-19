@@ -7,7 +7,7 @@ Show me  →  Let me try  →  Check my thinking  →  Keep this
  example     practice       specific feedback    your notes
 ```
 
-The interface and local bridge run on your computer. AI replies use Claude Code and its configured provider, so they need network access and a supported account or provider setup. No model runs inside the browser.
+Open the HTML and choose **Try a practice question** to start immediately. **This device** uses the browser’s built-in language model when it is already available for English text. The connected guide can also use an installed Ollama model (qwen3.5:4b, gemma3:4b, llama3.2:3b or qwen2.5:3b). When local AI is unavailable, the bundled field guide explains the current lesson and offers practice questions. **Connected Claude** uses the local launcher, network access and a configured Claude account or provider.
 
 ## Start
 
@@ -26,6 +26,10 @@ On macOS, a downloaded launcher may require the normal **Open** or **Privacy & S
 After the launcher reports that the guide is ready, Terminal can close. Open `START.command` again after restarting the computer. `STOP.command` stops the installation's recorded agent. No login item, system daemon, or browser extension is installed. A manually started `node climb-agent.mjs` process needs its terminal to stay open.
 
 Opening `the-climb.html` directly lets you read the guide, but live assistance needs the connected local page. Use **Open connected guide** to transfer answers when offered.
+
+## A package for outside testers
+
+`make package` builds `dist/climb-testers.zip` beside the public ZIP. It is the same guide with a blank profile, plus `climb-config.json` naming the repository that collects suggestions (the `origin` remote unless you pass `FEEDBACK_REPO=owner/name`) and `FOR-TESTERS.txt` explaining what to expect. In that guide, Suggest improvements opens a prefilled GitHub issue that the tester submits from their own account; copying the text stays available.
 
 ## What it does
 

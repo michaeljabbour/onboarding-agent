@@ -3,7 +3,7 @@ The Climb — your browser companion
 On a Mac
 1. Extract the entire ZIP.
 2. Double-click START.command.
-3. If Claude needs sign-in, finish the browser sign-in. The connected guide opens itself.
+3. If Claude needs sign-in, finish the browser sign-in. The live guide opens itself in your browser.
 
 You can close Terminal after it says the guide is ready. Next time, double-click START.command again. It reuses the running agent. STOP.command stops only the copy started by this launcher.
 
@@ -14,7 +14,7 @@ Run: bash START.sh
 Node.js 22+ is reused when installed. If missing, the launcher installs a private copy from nodejs.org after checking its pinned SHA-256. Claude Code is reused or installed through Anthropic's official installer. No administrator access is needed. Linux needs bash, curl, tar, a SHA-256 tool, and a browser opener; macOS includes these.
 
 On Windows
-The automatic launcher is not supported yet. Install Node.js 22+ and Claude Code, then run node climb-agent.mjs from this folder. This opens the same connected browser guide. Keep that terminal open.
+The automatic launcher is not supported yet. Install Node.js 22+ and Claude Code, then run node climb-agent.mjs from this folder. This opens the same live guide in your browser. Keep that terminal open.
 
 Where things live
 Mac: ~/Library/Application Support/The Climb
@@ -23,7 +23,7 @@ App files: app/
 Startup logs: logs/agent-4747.log
 Answers: your browser's local storage; the initial interview seed is kept beside the installed guide.
 
-This does not start at login. After a restart, open START.command again. It installs no browser extension. The companion's interface runs locally; Claude still needs network access and a supported account or configured provider. Existing account and provider settings are kept.
+This does not start at login. After a restart, open START.command again. It installs no browser extension. Choose This device in the companion for local help. Connected Claude needs network access and a supported account or configured provider. Existing account and provider settings are kept.
 
 Settings (optional)
 CLIMB_PORT=4747

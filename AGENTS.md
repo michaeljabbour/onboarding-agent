@@ -39,3 +39,7 @@ Use temporary directories, a free loopback port, synthetic profiles, and a fake 
 - Describe local storage and provider traffic accurately. Do not call the application fully offline or claim that no data is retained.
 
 Use [CONTRIBUTING.md](CONTRIBUTING.md) for review expectations and [SECURITY.md](SECURITY.md) for sensitive reports.
+
+## Teaching in The Climb
+
+Give learners a small decision they can make before revealing an answer. Show what happened, explain why, and let them try again. Introduce a technical term after a concrete example. Give each practice lab a plain-language link from the overview and the stage contents.
