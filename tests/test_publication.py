@@ -24,8 +24,8 @@ BUILD = load_script("build.py", "release_builder")
 EMPTY_SEED = {"profile": None, "kind": "", "done": {}, "calls": {}}
 RELEASE_NAMES = (
     "climb-agent.mjs", "the-climb.html", "launcher.mjs", "START.command", "START.sh",
-    "STOP.command", "README-start.txt", "README.txt", "LICENSE", "THIRD_PARTY_NOTICES.md",
-    "climb-seed.json",
+    "STOP.command", "README-start.txt", "README.txt", "FOR-TESTERS.txt", "LICENSE",
+    "THIRD_PARTY_NOTICES.md", "climb-seed.json",
 )
 
 

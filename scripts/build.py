@@ -13,7 +13,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 LAUNCHERS = ("START.command", "START.sh", "STOP.command", "launcher.mjs", "README-start.txt")
 NOTICES = ("LICENSE", "THIRD_PARTY_NOTICES.md")
-RELEASE_FILES = ("climb-agent.mjs", "the-climb.html", *LAUNCHERS, *NOTICES)
+RELEASE_FILES = ("climb-agent.mjs", "the-climb.html", "FOR-TESTERS.txt", *LAUNCHERS, *NOTICES)
 EMPTY_SEED = {"profile": None, "kind": "", "done": {}, "calls": {}}
 
 
@@ -56,11 +56,14 @@ def check_syntax(html):
         subprocess.run(["node", "--check", str(script)], check=True)
 
 
-def build_zip():
+def build_zip(feedback_repo=""):
+    """Write the public ZIP, or with feedback_repo the testers' ZIP that also names where suggestions go."""
     output = ROOT / "dist"
     output.mkdir(exist_ok=True)
-    archive = output / "climb-agent.zip"
+    archive = output / ("climb-testers.zip" if feedback_repo else "climb-agent.zip")
     payloads = {name: (ROOT / name).read_bytes() for name in RELEASE_FILES}
+    if feedback_repo:
+        payloads["climb-config.json"] = (json.dumps({"feedbackRepo": feedback_repo}) + "\n").encode()
     payloads["README.txt"] = (ROOT / "README-start.txt").read_bytes()
     payloads["climb-seed.json"] = (json.dumps(EMPTY_SEED) + "\n").encode()
     with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as bundle:
@@ -71,14 +74,18 @@ def build_zip():
             entry.external_attr = (0o100755 if name.endswith((".command", ".sh")) else 0o100644) << 16
             bundle.writestr(entry, content)
     digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-    (output / "climb-agent.zip.sha256").write_text(digest + "  climb-agent.zip\n")
-    print("Built dist/climb-agent.zip with an empty profile and executable launchers.")
+    (output / (archive.name + ".sha256")).write_text(digest + "  " + archive.name + "\n")
+    print("Built dist/" + archive.name + " with an empty profile and executable launchers." + (" Suggestions go to " + feedback_repo + "." if feedback_repo else ""))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Verify payload synchronization and syntax without writing files")
+    parser.add_argument("--feedback-repo", default="", metavar="OWNER/NAME",
+                        help="Also build dist/climb-testers.zip, whose guide offers to open a GitHub issue there")
     args = parser.parse_args()
+    if args.feedback_repo and not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", args.feedback_repo):
+        raise SystemExit("--feedback-repo must look like owner/name.")
     html = synchronized_html()
     if args.check:
         if html != (ROOT / "the-climb.html").read_text():
@@ -90,6 +97,8 @@ def main():
         print("Embedded payloads and JavaScript/shell syntax are valid.")
     else:
         build_zip()
+        if args.feedback_repo:
+            build_zip(args.feedback_repo)
 
 
 if __name__ == "__main__":

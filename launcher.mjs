@@ -6,7 +6,8 @@ import net from 'node:net';
 import {spawn, execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 
-const base = process.env.CLIMB_INSTALL_DIR || (process.platform === 'darwin' ? path.join(os.homedir(), 'Library/Application Support/The Climb') : path.join(process.env.XDG_DATA_HOME || path.join(os.homedir(), '.local/share'), 'the-climb'));
+const installDir = process.env.CLIMB_INSTALL_DIR || (process.platform === 'darwin' ? path.join(os.homedir(), 'Library/Application Support/The Climb') : path.join(process.env.XDG_DATA_HOME || path.join(os.homedir(), '.local/share'), 'the-climb'));
+const base = fs.existsSync(installDir) ? fs.realpathSync(installDir) : path.resolve(installDir);
 const port = Number(process.env.CLIMB_PORT || 4747);
 if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('Use a port from 1024 to 65535.');
 const url = `http://localhost:${port}/`;

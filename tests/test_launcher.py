@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import tempfile
 import threading
+import time
 import unittest
 
 
@@ -73,6 +74,35 @@ class LauncherTests(unittest.TestCase):
             self.assertIn("already running", result.stdout)
             self.assertIn("will keep it", result.stdout)
         self.assertFalse((self.install / ("agent-" + str(self.port) + ".json")).exists())
+
+    def test_stop_uses_the_same_identity_through_a_directory_alias(self):
+        alias = self.directory / "linked-installation"
+        alias.symlink_to(self.install, target_is_directory=True)
+        app = self.install / "app"
+        app.mkdir()
+        script = (app / "climb-agent.mjs").resolve()
+        script.write_text('import fs from "node:fs"; fs.writeFileSync(process.argv[2], "ready"); setInterval(() => {}, 1000);')
+        ready = self.directory / "ready"
+        process = subprocess.Popen([NODE, str(script), str(ready)], env=self.env)
+        try:
+            deadline = time.monotonic() + 3
+            while not ready.exists() and time.monotonic() < deadline:
+                time.sleep(0.02)
+            self.assertTrue(ready.exists())
+            identity = subprocess.check_output(
+                ["/bin/ps", "-p", str(process.pid), "-o", "uid=", "-o", "lstart=", "-o", "command="],
+                text=True).strip()
+            record = self.install / ("agent-" + str(self.port) + ".json")
+            record.write_text(json.dumps({"pid": process.pid, "identity": identity, "script": str(script)}))
+            self.env["CLIMB_INSTALL_DIR"] = str(alias)
+            result = self.command("stop")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertFalse(record.exists())
+            process.wait(timeout=3)
+        finally:
+            if process.poll() is None:
+                process.terminate()
+                process.wait(timeout=3)
 
     def test_stop_rejects_record_with_wrong_identity(self):
         record = self.install / ("agent-" + str(self.port) + ".json")

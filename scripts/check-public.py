@@ -18,7 +18,7 @@ ROOT_FILES = {
     ".editorconfig", ".gitattributes", ".gitignore", "README.md", "AGENTS.md",
     "CONTRIBUTING.md", "SECURITY.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "Makefile",
     "the-climb.html", "climb-agent.mjs", "launcher.mjs", "START.command", "START.sh",
-    "STOP.command", "README-start.txt",
+    "STOP.command", "README-start.txt", "FOR-TESTERS.txt",
 }
 PUBLIC_DIRS = {"docs", "scripts", "tests", ".github"}
 PRIVATE_PARTS = {"work", ".agents", ".claude", ".taste-skill", "node_modules",
@@ -96,7 +96,7 @@ def indexed_files():
 def release_issues(archive, deny_terms=()):
     expected = {"climb-agent/" + name for name in (
         "climb-agent.mjs", "the-climb.html", "launcher.mjs", "START.command", "START.sh",
-        "STOP.command", "README-start.txt", "README.txt", "LICENSE", "THIRD_PARTY_NOTICES.md", "climb-seed.json")}
+        "STOP.command", "README-start.txt", "README.txt", "FOR-TESTERS.txt", "LICENSE", "THIRD_PARTY_NOTICES.md", "climb-seed.json")}
     issues = []
     with zipfile.ZipFile(archive) as bundle:
         if set(bundle.namelist()) != expected or len(bundle.namelist()) != len(expected):

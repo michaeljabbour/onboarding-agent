@@ -115,6 +115,11 @@ if [ "$CLIMB_SOURCE_DIR" != "$CLIMB_APP_DIR" ]; then
       mv "$CLIMB_APP_DIR/.$CLIMB_FILE.new.$$" "$CLIMB_APP_DIR/$CLIMB_FILE"
     fi
   done
+  # Settings follow the folder that was opened, so a newer package can change them.
+  if [ -f "$CLIMB_SOURCE_DIR/climb-config.json" ]; then
+    cp "$CLIMB_SOURCE_DIR/climb-config.json" "$CLIMB_APP_DIR/.climb-config.json.new.$$"
+    mv "$CLIMB_APP_DIR/.climb-config.json.new.$$" "$CLIMB_APP_DIR/climb-config.json"
+  fi
   # Keep the installed seed; a later ZIP must not overwrite somebody's earlier answers.
   if [ -f "$CLIMB_SOURCE_DIR/climb-seed.json" ] && [ ! -f "$CLIMB_APP_DIR/climb-seed.json" ]; then
     cp "$CLIMB_SOURCE_DIR/climb-seed.json" "$CLIMB_APP_DIR/climb-seed.json"

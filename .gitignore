@@ -1,6 +1,10 @@
 # Private development history, installed skills, and duplicate staging copies
 /work/
 /.agents/
+/.forge/
+/.grok/
+/.qwen/
+/skills/
 /.claude/
 /.taste-skill/
 /launcher/

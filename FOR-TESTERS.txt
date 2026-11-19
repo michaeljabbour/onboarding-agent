@@ -1,0 +1,63 @@
+The Climb: notes for testers
+
+Thank you for trying this. The Climb is a guide that sets up a Mac for AI coding agents
+such as Claude Code, then walks you through building one small thing of your own. You do
+not need to know how to code. We want to learn where a new person gets stuck.
+
+What you need
+- A Mac you are allowed to install developer tools on.
+- A Claude account that can use Claude Code. The guide asks you to sign in once.
+- About two hours. Much of that is waiting for installs, and you can stop and come back.
+- A GitHub account. You can create a free one when the guide reaches that step.
+
+Start
+1. Unzip the download. Keep everything inside the climb-agent folder together.
+2. Double-click START.command.
+3. macOS may say the file is from an unidentified developer, because this is not a signed
+   app. Open System Settings, Privacy & Security, scroll to the message about
+   START.command and choose Open Anyway. Do not turn Gatekeeper off.
+4. A Terminal window installs Node and Claude Code if they are missing, asks you to sign
+   in to Claude, then opens the guide in your browser at http://localhost:4747/.
+
+What it does to your Mac
+- Nothing is installed until you press a button for it, and you watch every command run in
+  a terminal on the page.
+- Setup can install Apple's developer tools, Homebrew, Git, Node, GitHub's command-line
+  tool and GitHub Desktop. It creates a folder named dev in your home folder for projects,
+  and a private repository on your GitHub account for your first project.
+- The terminal on the page is a real terminal on your Mac. If Homebrew asks for your Mac
+  password, you type it there. It goes to the terminal and is not saved by the guide.
+- Your answers stay in your browser. Questions you ask Claude, and the steps an agent
+  runs, go to the AI provider your Claude Code account uses.
+
+What we would like you to try
+- Go from the first screen to a first small feature that you have checked yourself. That
+  is stages 1 to 3. Stages 4 to 6 are welcome but optional.
+- Follow the main button on each screen. When you are unsure what a button will do, or
+  what to do next, note the screen and what you expected.
+- Stop if anything worries you. Nothing here needs you to continue.
+
+Telling us what happened
+- At the end, or whenever you stop, open Suggest improvements at the bottom of the menu.
+  It drafts a note from your progress and replaces your name, project and paths with
+  placeholders. Edit it, then choose Open a GitHub issue with this text. GitHub asks you
+  to sign in if you are not already, shows your text, and posts nothing until you press
+  Submit. If you would rather not use GitHub, choose Copy the text and send it to the
+  person who gave you this guide.
+- The most useful things to add: the first place you had to guess, anything that failed
+  and the words on screen when it did, and which browser you used.
+
+Stopping and removing it
+- Double-click STOP.command to stop the guide. It does not start again by itself; open
+  START.command when you want it back.
+- To remove it, run STOP.command, then delete the folder
+  ~/Library/Application Support/The Climb and the climb-agent folder you unzipped.
+  This leaves Claude Code, the installed tools, your projects and your GitHub repository
+  in place. Remove those yourself if you do not want them.
+
+Known limits in this test build
+- Mac only for the guided setup. Windows and Linux can read the guide and follow the
+  by-hand notes.
+- The terminal on the page shows text without colour and does not complete commands with
+  the Tab key.
+- It has been checked most in Chrome. If you use Safari, tell us what you see.
